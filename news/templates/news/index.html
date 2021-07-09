@@ -17,6 +17,7 @@
                     {% load index %}
                     {% for i in range %}
                         <h5><a href={{ href_list|index:i }} target="_blank"> - {{ title_list|index:i }} </a></h5>
+                        <p>{{ summary_list|index:i }}</p>
                         <hr>
                     {% endfor %}
                 </div>
