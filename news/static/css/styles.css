@@ -1,0 +1,26 @@
+.header{
+    text-align: center; 
+    margin-bottom: 3rem;
+    color: blueviolet;
+}
+
+.img-responsive{
+    border-radius: .5rem;
+}
+
+@media screen and (min-width: 992px){
+    .card{
+        transition: .5s;
+        cursor: pointer;
+    }
+
+    .card:hover{
+        box-shadow: 0 12px 24px rgb(138, 43, 226);
+        transform: translateY(-5px) scale(1.005);
+    }
+
+    .card:active{
+        box-shadow: 0 2px 4px rgb(138, 43, 226);
+        scale: (0.98);
+    }
+}
