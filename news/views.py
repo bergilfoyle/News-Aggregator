@@ -13,5 +13,7 @@ for story in ec_stories:
     summary_list.append(story.text)
 range = range(len(href_list))
 
+context = {'href_list': href_list, 'title_list': title_list, 'summary_list': summary_list, 'range': range}
+
 def index(req):
-    return render(req, 'news/index.html', {'href_list': href_list, 'title_list': title_list, 'summary_list': summary_list, 'range': range})
+    return render(req, 'news/index.html', context)
