@@ -32,4 +32,4 @@ def about(req):
     return render(req, 'news/about.html', context)
 
 def contact(req):
-    return render(req, 'news/about.html', context)
+    return render(req, 'news/contact.html', context)
