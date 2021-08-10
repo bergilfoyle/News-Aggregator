@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+from django.contrib.auth.forms import UserCreationForm
 from news import views
 
 urlpatterns = [
+    url(r'^register/$', views.register, name='register'),
     path('admin/', admin.site.urls),
     path('', views.index, name = "home"),
     path('about', views.about, name = "about"),

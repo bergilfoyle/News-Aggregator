@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import CustomUserCreationForm
 import requests
 from bs4 import BeautifulSoup
 
@@ -33,3 +36,16 @@ def about(req):
 
 def contact(req):
     return render(req, 'news/contact.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        f = CustomUserCreationForm(request.POST)
+        if f.is_valid():
+            f.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('register')
+
+    else:
+        f = CustomUserCreationForm()
+
+    return render(request, 'news/register.html', {'form': f})

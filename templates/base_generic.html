@@ -19,10 +19,13 @@
     {% block nav %}
     <ul id="nav">
         <li>{% block nav-home %}<a href="{% url 'home' %}">Home</a>{% endblock %}</li>
+        {% if user.is_authenticated %}
+            {% block nav-home %}<a href="{% url 'saved' %}">Saved</a>{% endblock %}
+        {% endif%}
         <li>{% block nav-about %}<a href="{% url 'about' %}">About</a>{% endblock %}</li>
         <li>{% block nav-contact %}<a href="{% url 'contact' %}">Contact</a>{% endblock %}</li>
         {% if user.is_authenticated %}
-        <li>User: {{ user.get_username }}</li>
+        <li>{{ user.get_username }}</li>
         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
         {% else %}
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
