@@ -20,30 +20,7 @@
         </ul>
         {% endblock %}
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                        <h3 class="header">News from Economic Times</h3>
-                    {% load index %}
-                    {% for i in range %}
-                    <div class="row justify-content-center">
-                    <div class="card mb-4 col-md-8 col-12 p-4" style="background-color: #9575cd;display: inline-block;">
-                        <a href={{ href_list|index:i }} target="_blank" style="text-decoration: none;">
-                        <div class="card-body">
-                            <div class="card-title">
-                            <h5 style="color: #490085;"> - {{ title_list|index:i }} </h5>
-                            </div>
-                            <div class="card-text">
-                                <p style="color: #eee;">{{ summary_list|index:i }}</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 mb-4 align-middle">
-                        <img src={{ image_list|index:i }} class="img-responsive" width="100%"></img>
-                    </div>
-                    </div>
-                    {% endfor %}
-                </div>
+            
             </div>
         </div>
         
