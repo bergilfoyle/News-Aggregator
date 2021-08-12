@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import CustomUserCreationForm
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,7 +12,6 @@ ec_stories = ec_soup.find_all("div", {"class": "eachStory"})
 count=0
 for story in ec_stories:
     if(count==0):
-        print(story)
         count=1
     title = story.h3.a
     image = story.a.span.img
@@ -25,11 +27,24 @@ context = {'href_list': href_list, 'title_list': title_list, 'summary_list': sum
 def index(req):
     return render(req, 'news/index.html', context)
 
-def home(req):
-    return render(req, 'news/index.html', context)
-
 def about(req):
     return render(req, 'news/about.html', context)
 
 def contact(req):
     return render(req, 'news/contact.html', context)
+
+def saved(req):
+    return render(req, 'news/saved.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        f = CustomUserCreationForm(request.POST)
+        if f.is_valid():
+            f.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('register')
+
+    else:
+        f = CustomUserCreationForm()
+
+    return render(request, 'news/register.html', {'form': f})
