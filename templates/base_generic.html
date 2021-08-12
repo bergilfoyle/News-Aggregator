@@ -4,6 +4,8 @@
 
 <head>
     <title>News</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -14,20 +16,22 @@
         <center>
             <h1 style="color: #fff;">Farming News App</h1>
         </center>
-    
 
     {% block nav %}
-    <nav class="navbar navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <button class="navbar-toggler" type="button"  style="z-index: 100;" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        {% if user.is_authenticated %}
+        <span class="nav-link ">Welcome, {{ user.get_username}}</span>
+        {% endif %}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">{% block nav-home %}<a href="{% url 'home' %}" class="nav-link">Home</a>{% endblock %}</li>
+                <li class="nav-item">{% block nav-saved %}<a href="{% url 'saved' %}" class="nav-link">Saved</a>{% endblock %}</li>
                 <li class="nav-item">{% block nav-about %}<a href="{% url 'about' %}" class="nav-link">About</a>{% endblock %}</li>
                 <li class="nav-item">{% block nav-contact %}<a href="{% url 'contact' %}" class="nav-link">Contact</a>{% endblock %}</li>
                 {% if user.is_authenticated %}
-                <li class="nav-item">User: {{ user.get_username }}</li>
                 <li class="nav-item"><a href="{% url 'logout'%}?next={{request.path}}" class="nav-link">Logout</a></li>
                 {% else %}
                 <li class="nav-item"><a href="{% url 'login'%}?next={{request.path}}" class="nav-link">Login</a></li>
@@ -36,12 +40,12 @@
         </div>
     </nav>
     {% endblock %}
-    </div>
+   </div>
     {% block content %}
 
     {% endblock %}
 
-    <footer class="footer" style="background-color: rgb(138, 43, 226); border-radius: 5rem 5rem 0 0; color: #fff;">
+    <footer class="footer">
         <div class="container">
             <div class="row justify-content-center">
                 <p>All Rights Reserved</p>
@@ -56,6 +60,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

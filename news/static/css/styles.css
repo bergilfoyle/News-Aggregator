@@ -1,21 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 body{
-    min-height: 100vh;
+    margin-bottom: 3rem;
+    font-family: 'Poppins' , sans-serif;
+}
+
+.save-btn{
+    color:rgb(138, 43, 226);
 }
 
 .header{
     text-align: center; 
     margin-bottom: 3rem;
     color: blueviolet;
+    font-weight: 600;
 }
 
 .img-responsive{
     border-radius: .5rem;
 }
 
+.navbar{
+    margin-top: 2rem;
+    margin-bottom: -1rem;
+}
 
 .nav-link{
-    color: #fff;
+    font-weight: 600;
     text-decoration: none;
+    color: #ddd;
+    margin-left: 1rem;
 }
 
 .nav-link:hover{
@@ -32,15 +46,41 @@ body{
 }
 
 .footer{
+    background-color: rgb(138, 43, 226); 
+    border-radius: 5rem 5rem 0 0; 
+    color: #fff;
     position: fixed;
-    top: 0;
+    bottom: 0;
+    width: 100%;
 }
 
+.login-label{
+    color: #d1c4e9;
+    font-weight: 500;
+    margin-right: 1rem;
+    text-decoration: none;
+}
+
+.card{
+    transition: .5s;
+    cursor: pointer;
+}
+
+.card-login{
+    background-color: rgb(138, 43, 226);
+    cursor: auto;
+}
+
+.card-login .header{
+    color: #d1c4e9;
+}
+
+.btn{
+    background-color: #d1c4e9;
+    color: #490085;
+}
 @media screen and (min-width: 992px){
-    .card{
-        transition: .5s;
-        cursor: pointer;
-    }
+    
 
     .card:hover{
         box-shadow: 0 12px 24px rgb(138, 43, 226);
@@ -50,5 +90,19 @@ body{
     .card:active{
         box-shadow: 0 2px 4px rgb(138, 43, 226);
         scale: (0.98);
+    }
+
+    .card-login:hover{
+        box-shadow: none;
+        transform: none;
+    }
+
+    .card-login p a:hover{
+        text-decoration: underline;
+        color: #d1c4e9;
+    }
+
+    .nav-link{
+        margin-left: auto;
     }
 }

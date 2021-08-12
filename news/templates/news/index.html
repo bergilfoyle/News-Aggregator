@@ -7,9 +7,10 @@
             {% load index %}
             {% for i in range %}
             <div class="row justify-content-center">
-                <div class="card mb-4 col-md-8 col-12 p-4" style="background-color: #9575cd;display: inline-block;">
+                <div class="card mb-4 col-10 col-md-8 p-4" style="background-color: #9575cd;display: inline-block;">
                     <a href={{ href_list|index:i }} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
+                            <div class="btn mb-4" id="save-me">Save <ion-icon name="bookmark-outline" class="save-btn"></ion-icon></div>
                             <div class="card-title">
                                 <h5 style="color: #490085;"> - {{ title_list|index:i }} </h5>
                             </div>
@@ -19,7 +20,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 mb-4 align-middle">
+                <div class="col-md-4 mb-4 align-middle d-none d-md-block">
                     <img src={{ image_list|index:i }} class="img-responsive" width="100%"></img>
                 </div>
             </div>
