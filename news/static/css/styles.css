@@ -8,6 +8,25 @@
     border-radius: .5rem;
 }
 
+
+.nav-link{
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-link:hover{
+    color: #fff;
+}
+.nav-item{
+    transition: .5s;
+    border-radius: .5rem;
+    margin-right: 1rem;
+}
+
+.nav-item:hover{
+    background-color: #490085;
+}
+
 @media screen and (min-width: 992px){
     .card{
         transition: .5s;
