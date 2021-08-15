@@ -7,7 +7,7 @@
             {% load index %}
             {% for i in range %}
             <div class="row justify-content-center">
-                <div class="card mb-4 col-10 col-md-8 p-4">
+                <div class="card mb-4 col-md-12 col-11 p-4">
                     <a href={{ href_list|index:i }} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
                             {% if user.is_authenticated %}
@@ -15,18 +15,25 @@
                                 <span>Save<ion-icon name="bookmark-outline" class="save-btn"></ion-icon></span>
                             </div>
                             {% endif %}
-                            <div class="card-title">
-                                <h5>- {{ title_list|index:i }} </h5>
+                            <div class="row justify-content-center">
+                            <div class="col-md-8 col-12">
+                                <div class="card-title">
+                                    <h5>- {{ title_list|index:i }} </h5>
+                                </div>
+                                <div class="card-text">
+                                    <p>{{ summary_list|index:i }}</p>
+                                </div>
                             </div>
-                            <div class="card-text">
-                                <p>{{ summary_list|index:i }}</p>
+                            <div class="col-md-3 d-none d-md-block image my-auto">
+                                <img src={{ image_list|index:i }} class="img-responsive" width="100%"></img>
+                            </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 mb-4 align-middle d-none d-md-block image">
+                <!--!<div class="col-md-4 mb-4 align-middle d-none d-md-block image">
                     <img src={{ image_list|index:i }} class="img-responsive" width="100%"></img>
-                </div>
+                </div>-->
             </div>
             {% endfor %}
         </div>
