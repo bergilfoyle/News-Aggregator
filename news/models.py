@@ -15,6 +15,7 @@ class Topic(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200, default = '_')
     url = models.CharField(max_length=200, default = '_')
+    imageurl = models.CharField(max_length=200, default='_')
     source = models.ForeignKey(Source, on_delete=models.SET_NULL, null=True)
     summary = models.TextField(max_length=200, default='_', help_text='Enter the summary')
     topic = models.ManyToManyField(Topic, help_text='Enter the news topic')

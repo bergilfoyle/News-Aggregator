@@ -1,6 +1,5 @@
 from django.views import generic
-from django.http import HttpResponse
-from news.models import Article, Saved
+from news.models import Source, Article, Saved
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import CustomUserCreationForm
@@ -8,30 +7,36 @@ import requests
 from bs4 import BeautifulSoup
 
 href_list, title_list, summary_list, image_list = [], [], [], []
-ectimes = requests.get(
-    "https://economictimes.indiatimes.com/news/economy/agriculture")
+ectimes = requests.get("https://economictimes.indiatimes.com/news/economy/agriculture")
 ec_soup = BeautifulSoup(ectimes.content, 'html.parser')
 ec_stories = ec_soup.find_all("div", {"class": "eachStory"})
-count = 0
+
+source = 'https://economictimes.indiatimes.com'
+sourceobject, created = Source.objects.get_or_create(url=source)
+sourceobject.name = 'Economic Times'
+sourceobject.save()
+
 for story in ec_stories:
-    if(count == 0):
-        count = 1
-    t = story.h3.a
+    titletag = story.h3.a
     image = story.a.span.img
-    href_list.append('https://economictimes.indiatimes.com' + t['href'])
-    title_list.append(t.text)
+    url = source + titletag['href']
+    imageurl = image['data-original']
+
+    title_list.append(titletag.text)
     summary_list.append(story.text)
-    image_list.append(image['data-original'])
-    obj, created = Article.objects.get_or_create(
-        url='https://economictimes.indiatimes.com'+t['href'])
-    obj.title = t.text
+    href_list.append(url)
+    image_list.append(imageurl)
+
+    obj, created = Article.objects.get_or_create(url = url)
+    obj.title = titletag.text
+    obj.source = sourceobject
     obj.summary = story.text
+    obj.imageurl = imageurl
     obj.save()
 
 range = range(len(href_list))
 
-context = {'href_list': href_list, 'title_list': title_list,
-           'summary_list': summary_list, 'range': range, 'image_list': image_list}
+context = {'href_list': href_list, 'title_list': title_list, 'summary_list': summary_list, 'range': range, 'image_list': image_list}
 
 def index(req):
     return render(req, 'news/index.html', context)
@@ -50,7 +55,6 @@ def register(request):
             f.save()
             messages.success(request, 'Account created successfully')
             return redirect('register')
-
     else:
         f = CustomUserCreationForm()
 
@@ -58,15 +62,14 @@ def register(request):
 
 def changesaved(request, operation, pk, source):
     article = Article.objects.get(pk=pk)
-    if operation=='addtosaved':
+    if operation == 'addtosaved':
         Saved.addtosaved(request.user, article)
-    elif operation=='removefromsaved':
+    elif operation == 'removefromsaved':
         Saved.removefromsaved(request.user, article)
     if(source == "userindex"):
         return redirect('index')
     else:
         return redirect('saved')
-    
 
 class ArticleListView(generic.ListView):
     model = Article
@@ -75,7 +78,8 @@ class ArticleListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
-        obj, created = Saved.objects.get_or_create(current_user = self.request.user)
+        obj, created = Saved.objects.get_or_create(
+            current_user=self.request.user)
         context['saved_list'] = obj.articles.all()
         return context
 
@@ -86,7 +90,7 @@ class SavedListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SavedListView, self).get_context_data(**kwargs)
-        obj, created = Saved.objects.get_or_create(current_user = self.request.user)
+        obj, created = Saved.objects.get_or_create(
+            current_user=self.request.user)
         context['saved_list'] = obj.articles.all()
         return context
-
