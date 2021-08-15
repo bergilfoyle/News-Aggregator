@@ -34,10 +34,13 @@ urlpatterns = [
     path('', logged_in_switch_view(
         views.ArticleListView.as_view(), views.index
     ), name='home'),
+    path('index', logged_in_switch_view(
+        views.ArticleListView.as_view(), views.index
+    ), name='index'),
     path('saved', views.SavedListView.as_view(), name='saved'),
     path('about', views.about, name="about"),
     path('contact', views.contact, name="contact"),
     path('accounts/', include('django.contrib.auth.urls')),
-    path(r'^changesaved/(?P<operation>*+)/(?P<pk>\d+)/$',
+    path(r'^changesaved/(?P<operation>*+)/(?P<pk>\d+)/(?P<source>*+)$',
          views.changesaved, name='changesaved')
 ]

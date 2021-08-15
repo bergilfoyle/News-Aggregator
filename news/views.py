@@ -56,13 +56,17 @@ def register(request):
 
     return render(request, 'news/register.html', {'form': f})
 
-def changesaved(request, operation, pk):
+def changesaved(request, operation, pk, source):
     article = Article.objects.get(pk=pk)
     if operation=='addtosaved':
         Saved.addtosaved(request.user, article)
     elif operation=='removefromsaved':
         Saved.removefromsaved(request.user, article)
-    return redirect('saved')
+    if(source == "userindex"):
+        return redirect('index')
+    else:
+        return redirect('saved')
+    
 
 class ArticleListView(generic.ListView):
     model = Article

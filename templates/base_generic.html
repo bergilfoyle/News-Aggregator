@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-<body style="background-color: #d1c4e9;">
-    <div class="jumbotron" style="background-color: rgb(138, 43, 226); border-radius: 0 0 5rem 5rem;">
+<body>
+    <div class="jumbotron" style="border-radius: 0 0 5rem 5rem;">
         <center>
-            <h1 style="color: #fff;">Farming News App</h1>
+            <h1 style="color: #edf5e1;">Farming News App</h1>
         </center>
 
     {% block nav %}
@@ -23,7 +23,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         {% if user.is_authenticated %}
-        <span class="nav-link ">Welcome, {{ user.get_username}}</span>
+        <span class="nav-link">Welcome, {{ user.get_username}}</span>
         {% endif %}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -39,6 +39,9 @@
                 <li class="nav-item"><a href="{% url 'login'%}?next={{request.path}}" class="nav-link">Login</a></li>
                 {% endif %}
             </ul>
+            <form class="form-inline my-2 my-lg-0" id="search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
         </div>
     </nav>
     {% endblock %}
@@ -64,6 +67,8 @@
         crossorigin="anonymous"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src = "{% static 'js/index.js' %}"></script>
+<script src = "{% static 'js/search.js' %}"></script>
 </body>
 
 </html>

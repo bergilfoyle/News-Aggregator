@@ -20,5 +20,5 @@ for story in ec_stories:
     try:
         obj = Article.objects.get(url='https://economictimes.indiatimes.com' + title['href'])
     except Article.DoesNotExist:
-        obj = Article(title = title.text, summary = story.text)
+        obj = Article(title = title.text, summary = story.text, image = image['data-original'])
         obj.save()

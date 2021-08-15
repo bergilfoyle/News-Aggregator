@@ -3,28 +3,28 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h1>Article List</h1>
+            <h1 class="header">Article List</h1>
             {% load index %}
             {% for i in range %}
             <div class="row justify-content-center">
-                <div class="card mb-4 col-10 col-md-8 p-4" style="background-color: #9575cd;display: inline-block;">
+                <div class="card mb-4 col-10 col-md-8 p-4">
                     <a href={{ href_list|index:i }} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
                             {% if user.is_authenticated %}
                             <div class="btn mb-4" id="save-me">
-                                <ion-icon name="bookmark-outline" class="save-btn"></ion-icon>
+                                <span>Save<ion-icon name="bookmark-outline" class="save-btn"></ion-icon></span>
                             </div>
                             {% endif %}
                             <div class="card-title">
-                                <h5 style="color: #490085;"> - {{ title_list|index:i }} </h5>
+                                <h5>- {{ title_list|index:i }} </h5>
                             </div>
                             <div class="card-text">
-                                <p style="color: #eee;">{{ summary_list|index:i }}</p>
+                                <p>{{ summary_list|index:i }}</p>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 mb-4 align-middle d-none d-md-block">
+                <div class="col-md-4 mb-4 align-middle d-none d-md-block image">
                     <img src={{ image_list|index:i }} class="img-responsive" width="100%"></img>
                 </div>
             </div>
