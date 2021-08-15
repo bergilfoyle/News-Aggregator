@@ -9,14 +9,21 @@
             <ul>
                 {% for article in saved_list %}
                 <div class="row justify-content-center">
-                <div class="card mb-4 col-10 col-md-8 p-4">
+                <div class="card mb-4 col-11 col-md-12 p-4">
                     <a href={{article.url}} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
-                            <div class="card-title">
-                                <h5> - {{article.title}} </h5>
-                            </div>
-                            <div class="card-text">
-                                <p>{{article.summary}}</p>
+                            <div class="row justify-content-center">
+                                <div class="col-md-9 col-11">
+                                <div class="card-title">
+                                    <h5> - {{article.title}} </h5>
+                                </div>
+                                <div class="card-text">
+                                    <p>{{article.summary}}</p>
+                                </div>
+                                </div>
+                                <div class="col-md-3 mb-4 d-none d-md-block image my-auto">
+                                    <img src={{ article.imageurl }} class="img-responsive" width="100%"></img>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -24,9 +31,6 @@
                     <a href="{% url 'changesaved' operation='removefromsaved' pk=article.pk source='saved' %}"><button type="button"
                             class="btn" onclick="redir()">Remove</button></a>
                     {% endif %}
-                </div>
-                <div class="col-md-4 mb-4 align-middle d-none d-md-block image">
-                    <img src={{ article.imageurl }} class="img-responsive" width="100%"></img>
                 </div>
                 </div>
                 {% endfor %}
