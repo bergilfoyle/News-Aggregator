@@ -1,13 +1,12 @@
 {% extends "base_generic.html" %}
-
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h1>Saved Articles</h1>
-            {% if saved_list %}
+            <h1>Article List</h1>
+            {% if article_list %}
             <ul>
-                {% for article in saved_list %}
+                {% for article in article_list %}
                 <div class="card mb-4 col-10 col-md-8 p-4" style="background-color: #9575cd;display: inline-block;">
                     <a href={{article.url}} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
@@ -20,8 +19,13 @@
                         </div>
                     </a>
                     {% if user.is_authenticated %}
+                    {% if article in saved_list%}
                     <a href="{% url 'changesaved' operation='removefromsaved' pk=article.pk %}"><button type="button"
-                            class="btn btn-default">Remove</button></a>
+                            class="btn btn-danger">Remove</button></a>
+                    {% else %}
+                    <a href="{% url 'changesaved' operation='addtosaved' pk=article.pk %}"><button type="button"
+                            class="btn btn-default">Save</button></a>
+                    {% endif %}
                     {% endif %}
                 </div>
                 {% endfor %}
