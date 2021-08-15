@@ -3,14 +3,18 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h3 class="header">News from Economic Times</h3>
+            <h1>Article List</h1>
             {% load index %}
             {% for i in range %}
             <div class="row justify-content-center">
                 <div class="card mb-4 col-10 col-md-8 p-4" style="background-color: #9575cd;display: inline-block;">
                     <a href={{ href_list|index:i }} target="_blank" style="text-decoration: none;">
                         <div class="card-body">
-                            <div class="btn mb-4" id="save-me">Save <ion-icon name="bookmark-outline" class="save-btn"></ion-icon></div>
+                            {% if user.is_authenticated %}
+                            <div class="btn mb-4" id="save-me">
+                                <ion-icon name="bookmark-outline" class="save-btn"></ion-icon>
+                            </div>
+                            {% endif %}
                             <div class="card-title">
                                 <h5 style="color: #490085;"> - {{ title_list|index:i }} </h5>
                             </div>
