@@ -1,6 +1,8 @@
 from news.models import Article, Source, Topic
+from django.utils.timezone import make_aware
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
 
 def scrapenews():
     href_list, title_list, summary_list, image_list = [], [], [], []
@@ -15,6 +17,7 @@ def scrapenews():
     sourceobject.save()
     for story in ec_stories:
         titletag = story.h3.a
+        date = story.time.text
         image = story.a.span.img
         title = titletag.text
         url = source + titletag['href']
@@ -25,6 +28,7 @@ def scrapenews():
         image_list.append(imageurl)
         obj, created = Article.objects.get_or_create(title = title)
         obj.title = title
+        obj.published = make_aware(datetime.strptime(date[:-4], '%b %d, %Y, %I:%M %p'))
         obj.url = url
         obj.source = sourceobject
         obj.summary = story.text
@@ -32,7 +36,6 @@ def scrapenews():
         obj.save()
         topicobject.article_set.add(obj)
 
-    
     source = "https://timesofindia.indiatimes.com"
     sourceobject, created = Source.objects.get_or_create(url=source)
     sourceobject.name = 'Times of India'
@@ -46,6 +49,7 @@ def scrapenews():
         titletag = article.div.a
         url = source + titletag['href']
         title = titletag.span.text.strip()
+        date = titletag.span.next_sibling.next_sibling.text
         summary = titletag.p.text.strip()
         try:
             imagepage = requests.get(url)
@@ -54,16 +58,17 @@ def scrapenews():
             imageurl = image_section.img['src']
         except:
             imageurl = ''
+        #imageurl = ''
         obj, created = Article.objects.get_or_create(title = title)
         obj.title = title
         obj.url = url
+        obj.published = make_aware(datetime.strptime(date, '%d %b %Y, %H:%M'))
         obj.source = sourceobject
         obj.summary = summary
         obj.imageurl = imageurl
         obj.save()
         if imageurl != '':
             topicobject.article_set.add(obj)
-        print(url)
 
     r = range(len(href_list))
     context = {'href_list': href_list, 'title_list': title_list, 'summary_list': summary_list, 'range': r, 'image_list': image_list}

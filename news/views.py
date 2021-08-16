@@ -66,7 +66,7 @@ class ArticleListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
         topic, created = Topic.objects.get_or_create(name='News')
-        context['article_list'] = topic.article_set.all()
+        context['article_list'] = topic.article_set.order_by('published').reverse()
         obj, created = Saved.objects.get_or_create(current_user=self.request.user)
         context['saved_list'] = obj.articles.all()
         return context
