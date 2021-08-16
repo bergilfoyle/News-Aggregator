@@ -29,6 +29,18 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">{% block nav-home %}<a href="{% url 'home' %}" class="nav-link">Home</a>{% endblock %}</li>
                 {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Topics
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">World News</a>
+                      <a class="dropdown-item" href="#">Organic Farming</a>
+                      <a class="dropdown-item" href="#">Equipment</a>
+                    </div>
+                  </li>
+                {% endif %}
+                {% if user.is_authenticated %}
                 <li class="nav-item">{% block nav-saved %}<a href="{% url 'saved' %}" class="nav-link">Saved</a>{% endblock %}</li>
                 {% endif %}
                 <li class="nav-item">{% block nav-about %}<a href="{% url 'about' %}" class="nav-link">About</a>{% endblock %}</li>
