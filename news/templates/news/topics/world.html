@@ -1,12 +1,11 @@
 {% extends "base_generic.html" %}
-
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h1 class="header">Saved Articles</h1>
-            {% if saved_list %}
-                {% for article in saved_list %}
+            <h1 class="header">World News</h1>
+            {% if world_list %}
+                {% for article in world_list %}
                 <div class="row justify-content-center">
                 <div class="card mb-4 col-11 col-md-12 p-4">
                     <a href={{article.url}} target="_blank" style="text-decoration: none;">
@@ -19,16 +18,21 @@
                                 <div class="card-text">
                                     <p>{{article.summary}}</p>
                                 </div>
-                                </div>
-                                <div class="col-md-3 mb-4 d-none d-md-block image my-auto">
-                                    <img src={{ article.imageurl }} class="img-responsive" width="100%"></img>
-                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4 d-none d-md-block image my-auto">
+                                <img src={{ article.imageurl }} class="img-responsive" width="100%"></img>
+                            </div>
                             </div>
                         </div>
                     </a>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'changesaved' operation='removefromsaved' pk=article.pk source='saved' %}"><button type="button"
-                            class="btn" onclick="redir()">Remove</button></a>
+                    {% if article in saved_list%}
+                    <a href="{% url 'changesaved' operation='removefromsaved' pk=article.pk source='world' %}"><button type="button"
+                            class="btn" style="background-color: #379683; color: #edf5e1;" onclick="redir()">Remove <ion-icon name="bookmark-outline" class="save-btn" style="color: #d1c4e9"></ion-icon></button></a>
+                    {% else %}
+                    <a href="{% url 'changesaved' operation='addtosaved' pk=article.pk source='world' %}"><button type="button"
+                            class="btn" onclick="redir()">Save <ion-icon name="bookmark-outline" class="save-btn"></ion-icon></button></a>
+                    {% endif %}
                     {% endif %}
                 </div>
                 </div>

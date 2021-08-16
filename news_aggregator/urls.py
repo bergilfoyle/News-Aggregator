@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import re_path, path, include
 from django.conf.urls import url
 from django.contrib.auth.forms import UserCreationForm
 from news import views
-
 
 def logged_in_switch_view(logged_in_view, logged_out_view):
     def inner_view(request, *args, **kwargs):
@@ -27,20 +26,16 @@ def logged_in_switch_view(logged_in_view, logged_out_view):
         return logged_out_view(request, *args, **kwargs)
     return inner_view
 
-
 urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     path('admin/', admin.site.urls),
-    path('', logged_in_switch_view(
-        views.ArticleListView.as_view(), views.index
-    ), name='home'),
-    path('index', logged_in_switch_view(
-        views.ArticleListView.as_view(), views.index
-    ), name='index'),
+    path('', logged_in_switch_view(views.ArticleListView.as_view(), views.index), name='home'),
+    path('index', logged_in_switch_view(views.ArticleListView.as_view(), views.index), name='index'),
     path('saved', views.SavedListView.as_view(), name='saved'),
     path('about', views.about, name="about"),
     path('contact', views.contact, name="contact"),
     path('accounts/', include('django.contrib.auth.urls')),
-    path(r'^changesaved/(?P<operation>*+)/(?P<pk>\d+)/(?P<source>*+)$',
-         views.changesaved, name='changesaved')
+    #path('topics/world', views.WorldListView.myview('world'), name='topics/world'),
+    re_path(r'^viewtopic/(?P<topicname>.+)$', views.viewtopic, name='viewtopic'),
+    re_path(r'^changesaved/(?P<operation>.+)/(?P<pk>\d+)/(?P<source>.+)$', views.changesaved, name='changesaved')
 ]
