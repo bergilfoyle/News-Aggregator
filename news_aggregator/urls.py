@@ -35,7 +35,6 @@ urlpatterns = [
     path('about', views.about, name="about"),
     path('contact', views.contact, name="contact"),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('topics/world', views.WorldListView.myview('world'), name='topics/world'),
     re_path(r'^viewtopic/(?P<topicname>.+)$', views.viewtopic, name='viewtopic'),
     re_path(r'^changesaved/(?P<operation>.+)/(?P<pk>\d+)/(?P<source>.+)$', views.changesaved, name='changesaved')
 ]
