@@ -15,7 +15,6 @@ def index(req):
 def about(req):
     return render(req, 'news/about.html', context)
 
-
 def contact(req):
     return render(req, 'news/contact.html', context)
 
@@ -72,6 +71,7 @@ class ArticleListView(generic.ListView):
         context['saved_list'] = obj.articles.all()
         return context
 
+
 class SavedListView(generic.ListView):
     model = Saved
     context_object_name = 'saved_list'
@@ -83,3 +83,4 @@ class SavedListView(generic.ListView):
             current_user=self.request.user)
         context['saved_list'] = obj.articles.all()
         return context
+
