@@ -18,6 +18,9 @@ def about(req):
 def contact(req):
     return render(req, 'news/contact.html', context)
 
+def userdetails(req):
+    return render(req, 'news/userdetails.html', context)
+
 def register(request):
     if request.method == 'POST':
         f = CustomUserCreationForm(request.POST)

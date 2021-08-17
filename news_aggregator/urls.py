@@ -29,6 +29,7 @@ def logged_in_switch_view(logged_in_view, logged_out_view):
 urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     path('admin/', admin.site.urls),
+    path('userdetails', views.userdetails, name="userdetails"),
     path('', logged_in_switch_view(views.ArticleListView.as_view(), views.index), name='home'),
     path('index', logged_in_switch_view(views.ArticleListView.as_view(), views.index), name='index'),
     path('saved', views.SavedListView.as_view(), name='saved'),

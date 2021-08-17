@@ -101,6 +101,11 @@ body{
     transition: .5s;
 }
 
+.form-btn{
+    transition: .5s;
+    ;
+}
+
 .button1 {
     background: transparent;
 }
@@ -130,5 +135,15 @@ body{
 
     .nav-link{
         margin-left: auto;
+    }
+
+    .form-btn:hover{
+        box-shadow: 0 5px 5px #05386b;
+    transform: translateY(-5px) scale(1.005)
+    }
+
+    .form-btn:active, .form-btn:focus{
+        transform: translateY(4px);
+        box-shadow: 0 1px 1px #05386b;
     }
 }

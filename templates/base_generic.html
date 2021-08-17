@@ -23,7 +23,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         {% if user.is_authenticated %}
-        <span class="nav-link">Welcome, {{ user.get_username}}</span>
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Welcome, {{ user.get_username}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="{% url 'userdetails' %}">Edit Details</a>
+          </div>
+        
         {% endif %}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
