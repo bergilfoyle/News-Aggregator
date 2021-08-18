@@ -1,50 +1,68 @@
-{% extends 'base_generic.html' %}
-
+{% extends "base_generic.html" %} 
 {% block content %}
-<div class="container">
+
+<div class="login">
+  <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          <div class="card card-login mb-4 col-md-8 col-12 p-4">
+            <h3 class="header">User Details</h3>
             <div class="row justify-content-center">
-            <div class="card card-login mb-4 col-md-8 col-12 p-4">
-                <div class="row justify-content-center">
-                    <h3 class="header">Edit Details</h3>
+              <form method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                  <label class="login-label col-md-5">Username</label>
+                  <div class="col-md-5">{{ form.username }}</div>
                 </div>
-                <div class="row justify-content-center">
-                    <form method="post" action="" class="col-12">
-                        <div class="form-group">
-                            <label for="Username" class="login-label">
-                                Username
-                            </label>
-                            <input type="text" class="form-control" placeholder="Enter Username" value="{{user.username}}">
-                        </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Email" class="login-label">Email address</label>
-                            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter email" value="{{user.email}}">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <span class="col-12 login-label mr-auto mb-4">Select sources to be excluded</span>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="Checkbox1">
-                            <label class="login-label" for="Checkbox1">
-                            Economic Times
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="Checkbox2">
-                            <label class="login-label" for="Checkbox2">
-                            Times of India
-                            </label>
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn mr-4 form-btn">Apply changes!</button>
-                            <button class="btn form-btn">Cancel</button>
-                        </div>
-                    </form>
+                <div class="form-group row">
+                  <label class="login-label col-md-5">Email</label>
+                  <div class="col-md-5">{{ form.email }}</div>
                 </div>
+                <div class="form-group text-center">
+                  {% if messages %}
+                  <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %} 
+                  {% if form.errors %}
+                  <ul>
+                    {% for key,value in form.errors.items %} {{ value|escape }}
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                  <button value = "changedetails" name = "changedetails" type="submit" class = "btn"> Apply Changes </button>
+                </div>
+              </form>
             </div>
+          </div>
+
+          <div class="card card-login mb-4 col-md-8 col-12 p-4">
+            <h3 class="header">Configure Sources</h3>
+            <div class="row justify-content-center">
+              <form method="post">
+              {% csrf_token %}
+              <div class="form-group row">
+                  <label class="login-label col-md-5">Select sources to be excluded</label>
+                  <div class="col-md-5">
+                    {% for i in sourcesform.sources%}
+                      <div class="form-check">
+                            {{i}}
+                        </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button value = "changesources" name = "changesources" type="submit" class = "btn"> Apply Changes </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>
 {% endblock %}

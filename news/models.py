@@ -30,7 +30,6 @@ class Saved(models.Model):
 
     @classmethod
     def addtosaved(cls, current_user, article):
-        print("Boo")
         obj, created = cls.objects.get_or_create(current_user = current_user)
         obj.articles.add(article)
     
@@ -38,3 +37,23 @@ class Saved(models.Model):
     def removefromsaved(cls, current_user, article):
         obj, created = cls.objects.get_or_create(current_user = current_user)
         obj.articles.remove(article)
+
+class UserSource(models.Model):
+    sources = models.ManyToManyField(Source)
+    current_user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='sourceowner', null=True)
+
+    @classmethod
+    def setinitialsources(cls, current_user):
+        obj, created = cls.objects.get_or_create(current_user = current_user)
+        obj.sources.set(Source.objects.all())
+        obj.save()
+    @classmethod
+    def updatesources(cls, current_user, checked):
+        obj, created = cls.objects.get_or_create(current_user = current_user)
+        obj.sources.clear()
+        obj.save()
+        obj.sources.add(*checked)
+        return obj
+
+
+

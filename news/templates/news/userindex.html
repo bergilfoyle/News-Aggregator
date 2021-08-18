@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_search.html" %}
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
@@ -39,7 +39,7 @@
                 </div>
                 {% endfor %}
             {% else %}
-            <p>No articles saved</p>
+            <p>Add News Sources <a href = "{% url 'userdetails' %}">here</a></p>
             {% endif %}
         </div>
     </div>
