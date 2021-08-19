@@ -26,7 +26,7 @@ class Article(models.Model):
 
 class Saved(models.Model):
     articles = models.ManyToManyField(Article)
-    current_user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='owner', null=True)
+    current_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', null=True)
 
     @classmethod
     def addtosaved(cls, current_user, article):
@@ -40,7 +40,7 @@ class Saved(models.Model):
 
 class UserSource(models.Model):
     sources = models.ManyToManyField(Source)
-    current_user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='sourceowner', null=True)
+    current_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sourceowner', null=True)
 
     @classmethod
     def setinitialsources(cls, current_user):

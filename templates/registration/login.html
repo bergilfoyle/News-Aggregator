@@ -37,11 +37,10 @@
               </div>
               <div class="form-group text-center">
                 <input type="submit" value="login" class="btn form-btn" />
-                <input type="hidden" name="next" value="{{ next }}" class="col-6" />
+                <input type="hidden" name="next" value="" class="col-6" />
               </div>
             </form>
 
-            {# Assumes you setup the password_reset view in your URLconf #}
             <div><a href="{% url 'password_reset' %}" class="login-label">Forgot password?</a></div>
             <div>Don't have an account? <a href="{% url 'register' %}" class="login-label">Register Here!</a></div>
 

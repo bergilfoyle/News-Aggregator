@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.views import generic
 from django.urls import reverse
+from django.contrib.auth import authenticate, login
 from news.models import Source, Article, Saved, Topic, UserSource
 import news.scrapers as scrapers
 from django.shortcuts import redirect, render
@@ -35,7 +36,6 @@ def register(request):
         f = CustomUserCreationForm()
 
     return render(request, 'news/register.html', {'form': f})
-
 
 def userdetails(request):
     initialvalues = {'username': request.user.username, 'email': request.user.email}
