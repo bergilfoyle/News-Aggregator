@@ -92,7 +92,8 @@ def viewtopic(request, topicname):
 
     topic, created = Topic.objects.get_or_create(name='World')
     obj, created = Saved.objects.get_or_create(current_user=request.user)
-    context[context_object_name] = topic.article_set.all()
+    usersource, created = UserSource.objects.get_or_create(current_user = request.user)
+    context[context_object_name] = topic.article_set.all().filter(source__in = usersource.sources.all()).order_by('published').reverse()
 
     context['saved_list'] = obj.articles.all()
     template_name = 'topics/{}.html'.format(topicname)
