@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>News</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="jumbotron" style="border-radius: 0 0 5rem 5rem;">
+        <center>
+            <h1 style="color: #edf5e1;">Farming News App</h1>
+        </center>
+
+    {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <button class="navbar-toggler" type="button"  style="z-index: 100;" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if user.is_authenticated %}
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Welcome, {{ user.get_username}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="{% url 'userdetails' %}">Edit Details</a>
+          </div>
+        
+        {% endif %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">{% block nav-home %}<a href="{% url 'home' %}" class="nav-link">Home</a>{% endblock %}</li>
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Topics
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'viewtopic' topicname='world' %}">World News</a>
+                      <a class="dropdown-item" href="#">Organic Farming</a>
+                      <a class="dropdown-item" href="#">Equipment</a>
+                    </div>
+                  </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li class="nav-item">{% block nav-saved %}<a href="{% url 'saved' %}" class="nav-link">Saved</a>{% endblock %}</li>
+                {% endif %}
+                <li class="nav-item">{% block nav-about %}<a href="{% url 'about' %}" class="nav-link">About</a>{% endblock %}</li>
+                <li class="nav-item">{% block nav-contact %}<a href="{% url 'contact' %}" class="nav-link">Contact</a>{% endblock %}</li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'logout'%}?next=/" class="nav-link">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'login'%}?next={{request.path}}" class="nav-link">Login</a></li>
+                {% endif %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" id="search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+    </nav>
+    {% endblock %}
+   </div>
+    {% block content %}
+
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row justify-content-center">
+                <p>All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src = "{% static 'js/index.js' %}"></script>
+<script src = "{% static 'js/search.js' %}"></script>
+</body>
+
+</html>
