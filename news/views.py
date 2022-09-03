@@ -8,7 +8,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import CustomUserCreationForm, UserDetailsForm, SourcesForm
 
-scrapers.scrapeworldnews()
+# scrapers.scrapeworldnews()
 r, context = scrapers.scrapenews()
 
 def index(req):
